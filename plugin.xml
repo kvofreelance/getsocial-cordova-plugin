@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="com.getsocialsdk.cordova"
+        version="0.1.0">
+
+  <name>GetSocialSdk</name>
+
+  <engines>
+    <engine name="cordova" version=">=3.4.0"/>
+  </engines>
+
+  <preference name="FACEBOOK_APP_ID" />
+
+  <!-- <asset src="www/getsocial.js" target="js/getsocial.js"/> -->
+
+  <js-module src="www/Configuration.js" name="Configuration">
+    <clobbers target="Configuration" />
+  </js-module>
+  <js-module src="www/GetSocial.js" name="GetSocial">
+    <clobbers target="GetSocial" />
+  </js-module>
+  <js-module src="www/plugin/InvitePlugin.js" name="InvitePlugin">
+    <clobbers target="InvitePlugin" />
+  </js-module>
+  <js-module src="www/plugin/Plugin.js" name="Plugin">
+    <clobbers target="Plugin" />
+  </js-module>
+  <js-module src="www/FacebookInvitePlugin.js" name="FacebookInvitePlugin">
+    <clobbers target="FacebookInvitePlugin" />
+  </js-module>
+  <js-module src="www/SmartInviteViewBuilder.js" name="SmartInviteViewBuilder">
+    <clobbers target="SmartInviteViewBuilder" />
+  </js-module>
+  <js-module src="www/view/ViewBuilder.js" name="ViewBuilder">
+    <clobbers target="ViewBuilder" />
+  </js-module>
+
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="GetSocialCordova">
+        <param name="android-package" value="com.getsocialsdk.cordova.plugin.GetSocialCordova"/>
+      </feature>
+      <feature name="GetSocialConfiguration">
+        <param name="android-package" value="com.getsocialsdk.cordova.plugin.GetSocialConfiguration"/>
+      </feature>
+      <feature name="GetSocialPluginEvents">
+        <param name="android-package" value="com.getsocialsdk.cordova.plugin.GetSocialPluginEvents" />
+      </feature>
+    </config-file>
+
+    <config-file target="res/values/strings.xml" parent="/*">
+      <string name="facebook_app_id">$FACEBOOK_APP_ID</string>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/*">
+      <permission android:name="com.getsocial.cordova.gcm.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+      <uses-permission android:name="com.getsocial.cordova.gcm.permission.C2D_MESSAGE" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    </config-file>
+    
+    <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
+      <intent-filter>
+        <action android:name="getsocial.intent.action.NOTIFICATION_RECEIVE" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <receiver android:name="im.getsocial.sdk.core.gms.InstallReferrerReceiver">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="im.getsocial.sdk.core.GetSocialReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+
+                <category android:name=".gcm"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="im.getsocial.sdk.intent.RECEIVE"/>
+
+                <data android:scheme="getSocialNotificationId"/>
+            </intent-filter>
+        </receiver>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <activity
+          android:name="com.facebook.FacebookActivity"
+          android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+          android:label="@string/app_name"
+          android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+    </config-file>
+
+    <source-file src="src/android/GetSocialCordova.java" target-dir="src/com/getsocialsdk/cordova/plugin/"/>
+    <source-file src="src/android/GetSocialConfiguration.java" target-dir="src/com/getsocialsdk/cordova/plugin/"/>
+    <source-file src="src/android/GetSocialPluginEvents.java" target-dir="src/com/getsocialsdk/cordova/plugin/"/>
+    <source-file src="src/android/GetSocialPluginProxy.java" target-dir="src/com/getsocialsdk/cordova/plugin/"/>
+    <source-file src="src/android/GetSocialUtil.java" target-dir="src/com/getsocialsdk/cordova/plugin/"/>
+
+    <source-file src="lib/getsocial-android-sdk-core.jar" target-dir="libs" framework="true" />
+    <framework src="com.facebook.android:facebook-android-sdk:4.4.0" />
+    <framework src="com.google.android.gms:play-services-gcm:8.1.0"/>
+    <framework src="com.google.android.gms:play-services-ads:8.1.0"/>
+    <framework src="com.google.android.gms:play-services-plus:8.1.0"/>
+  </platform>
+
+  <platform name="ios">
+    
+    <config-file target="config.xml" parent="/widget">
+      <feature name="Main">
+        <param name="ios-package" value="GSMain" />
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/GSMain.h" target-dir="GetSocialSDKPluign"/>
+    <source-file src="src/ios/GSMain.m" target-dir="GetSocialSDKPluign"/>
+  </platform>
+
+</plugin>
