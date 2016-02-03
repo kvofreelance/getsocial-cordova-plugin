@@ -6,7 +6,11 @@
 
 
 Modify MainActivity.java (src/"packageid"/MainActivity.java):
+	
+	import im.getsocial.sdk.core.GetSocial;
 
+	...
+	
 	@Override
     protected void onResume() {
         super.onResume();

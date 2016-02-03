@@ -1,6 +1,6 @@
 
-
   var ViewBuilder = require('./ViewBuilder')
+  var GetSocial = require('./GetSocial')
 
   var SmartInviteViewBuilder = function() {
     this.subject = null;
@@ -42,7 +42,7 @@
       if(this.title != null) {
         option.title = this.title;
       }
-      cordova.exec(null, null, "GetSocialCordova", "createSmartInviteView", [option]);
+      cordova.exec(null, null, GetSocial.nativeBridgeName, "createSmartInviteView", [option]);
     }
 
   SmartInviteViewBuilder.prototype.__proto__ = ViewBuilder.prototype;

@@ -19,6 +19,10 @@
       return this.instance;
   }
 
+  /// <summary>
+  /// Sets the UI configuration file to use.
+  /// </summary>
+  /// <param name="configFile">Relative path to the configuration file in <c>/assets/</c>folder or URL.
   Configuration.prototype.setConfiguration = function(fileOrUrl) {
     if(fileOrUrl == null || fileOrUrl == "") {
         console.log("Configuration path is null or empty");
@@ -28,19 +32,39 @@
     cordova.exec(this.onSuccess, this.onFailure, nativeBridgeName, "setConfiguration", [fileOrUrl]);
   }
 
+  /// <summary>
+  /// Clear all GetSocial UI configurations and set them to default. Invoke outside of transaction.
+  /// </summary>
   Configuration.prototype.clear = function() {
     cordova.exec(this.onSuccess, this.onFailure, nativeBridgeName, "clear", []);
   }
-
+  /// <summary>
+  /// All GetSocial UI configuration changes should start with call to <c><see cref="BeginTransaction"/></c>.
+  /// </summary>
   Configuration.prototype.beginTransaction = function() {
     cordova.exec(this.onSuccess, this.onFailure, nativeBridgeName, "beginTransaction", []);
   }
+  /// <summary>
+  /// All GetSocial UI configuration changes should end with call to <c><see cref="EndTransaction"/></c>.
+  /// </summary>
   Configuration.prototype.endTransaction = function() {
     cordova.exec(this.onSuccess, this.onFailure, nativeBridgeName, "endTransaction", []);
   }
-  Configuration.prototype.setBasePath = function(baseAssetsPath) {
-    cordova.exec(this.onSuccess, this.onFailure, nativeBridgeName, "setBasePath", [baseAssetsPath]);
+  /// <summary>
+  /// Base path relative to <c>/assets/</c> folder,
+  /// e.g. if all resources are in <c>/assets/getsocial/</c>, call method
+  /// <c>SetBasePath("getsocial/")</c>;
+  /// </summary>
+  /// <param name="basePath">Base path for assets relative to <c>/assets/</c> folder.</param>
+  Configuration.prototype.setBasePath = function(basePath) {
+    cordova.exec(this.onSuccess, this.onFailure, nativeBridgeName, "setBasePath", [basePath]);
   }
+  /// <summary>
+  /// Sets the image path.
+  /// </summary>
+  /// <param name="id">Id of the element to customize.</param>
+  /// <param name="path">Image path relative to <c>/assets/</c> folder.</param>
+        
   Configuration.prototype.setImagePath = function(id, path) {
     cordova.exec(this.onSuccess, this.onFailure, nativeBridgeName, "setImagePath", [id, path]);
   }
