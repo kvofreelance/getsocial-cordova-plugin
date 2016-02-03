@@ -4,9 +4,10 @@
 
 `cordova plugins add https://github.com/kvofreelance/getsocial-cordova-plugin.git --variable FACEBOOK_APP_ID="<facebook_app_id>"`
 
-Modify MainActivity.java (src/<packageid>/MainActivity.java)
+####Modify MainActivity.java (src/<packageid>/MainActivity.java)
 
-`@Override
+`
+	@Override
     protected void onResume() {
         super.onResume();
         GetSocial.getInstance(getApplicationContext()).onResume(this);
