@@ -24,12 +24,24 @@ public class GetSocialConfiguration extends CordovaPlugin {
     private final String SET_ANIMATION_STYLE_METHOD = "setAnimationStyle";
     private final String SET_INSETS_METHOD = "setInsets";
 
-    private void setConfiguration(String fileOrUrl) {
-        GetSocial.getConfiguration().setConfiguration(fileOrUrl);
+    private void setConfiguration(final String fileOrUrl, final CallbackContext callbackContext) {
+        cordova.getThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                GetSocial.getConfiguration().setConfiguration(fileOrUrl);
+                callbackContext.success(1);
+            }
+        });
     }
 
-    private void clear() {
-        GetSocial.getConfiguration().clear();
+    private void clear(final CallbackContext callbackContext) {
+        cordova.getThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                GetSocial.getConfiguration().clear();
+                callbackContext.success(1);
+            }
+        });
     }
 
     private void beginTransaction() {
@@ -80,12 +92,12 @@ public class GetSocialConfiguration extends CordovaPlugin {
             if(args.length() != 1)
                 return false;
 
-            setConfiguration(args.optString(0));
+            setConfiguration(args.optString(0), callbackContext);
             return true;
         }
 
         if(action.equalsIgnoreCase(CLEAR_METHOD)) {
-            clear();
+            clear(callbackContext);
             return true;
         }
 

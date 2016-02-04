@@ -1,6 +1,6 @@
-
   var ViewBuilder = require('./ViewBuilder')
-  var GetSocial = require('./GetSocial')
+
+  var NATIVE_BRIDGE_NAME = "GetSocialCordova";
 
   var SmartInviteViewBuilder = function() {
     this.subject = null;
@@ -11,18 +11,22 @@
 
     SmartInviteViewBuilder.prototype.setSubject = function(subject) {
       this.subject = subject;
+      return this;
     }
 
     SmartInviteViewBuilder.prototype.setText = function(text) {
       this.text = text;
+      return this;
     }
 
     SmartInviteViewBuilder.prototype.setReferralData = function(referralData) {
        this.referralData = referralData;
+       return this;
     }
 
     SmartInviteViewBuilder.prototype.setImage = function(image) {
        this.image = image;
+       return this;
     }
 
     SmartInviteViewBuilder.prototype.show = function() {
@@ -42,7 +46,7 @@
       if(this.title != null) {
         option.title = this.title;
       }
-      cordova.exec(null, null, GetSocial.nativeBridgeName, "createSmartInviteView", [option]);
+      cordova.exec(null, null, NATIVE_BRIDGE_NAME, "createSmartInviteView", [option]);
     }
 
   SmartInviteViewBuilder.prototype.__proto__ = ViewBuilder.prototype;

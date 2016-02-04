@@ -66,9 +66,9 @@ public class GetSocialPluginProxy extends InvitePlugin {
         JSONObject result = new JSONObject();
         try {
             result.put("action", "inviteFriends");
-            result.put("s", s);
-            result.put("s1", s1);
-            result.put("s2", s2);
+            result.put("subject", s);
+            result.put("text", s1);
+            result.put("referralDataUrl", s2);
             result.put("image", GetSocialUtil.convertBitmapToBase64(bitmap));
         } catch (Exception e) {}
 

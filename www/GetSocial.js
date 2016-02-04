@@ -1,25 +1,16 @@
 /*global cordova, module*/
 var SmartInviteViewBuilder = require('./SmartInviteViewBuilder')
 
-var nativeBridgeName = "GetSocialCordova";
-var constants = {
+var NATIVE_BRIDGE_NAME = "GetSocialCordova";
+
+var INVITE_FRIENDS_EVENTS = {
     ON_INVITE_FRIENDS_INTENT_EVENT: 0,
     ON_INVITED_FRIENDS_EVENT: 1
 }
 
-var PluginEvent = {
+var PLUGIN_EVENT = {
     INVITE_FRIENDS: "inviteFriends",
     INIT_CALLBACK_ID: "initCallbackId"
-}
-var ScaleMode = {
-    ScaleWithScreenSize: 1
-}
-
-var AnimationStyle = {
-    None: 0,
-    Scale: 1,
-    Fade: 2,
-    FadeAndScale: 3
 }
 
 var GetSocial = function() {
@@ -49,7 +40,7 @@ GetSocial.getInstance = function () {
 /// <param name="onSuccess">Action called if operation was successful. Optional.</param>
 /// <param name="onFailure">Action called if operation failed to complete. Optional.</param>
 GetSocial.prototype.init = function(key, onSuccess, onFailure) {
-    cordova.exec(onSuccess, onFailure, nativeBridgeName, "init", [key]);
+    cordova.exec(onSuccess, onFailure, NATIVE_BRIDGE_NAME, "init", [key]);
 }
 
 /// <summary>
@@ -57,7 +48,7 @@ GetSocial.prototype.init = function(key, onSuccess, onFailure) {
 /// </summary>
 /// <value><c>true</c> if GetSocial is initialized; otherwise, <c>false</c>.</value>
 GetSocial.prototype.isInitialized = function(onResult) {
-    cordova.exec(onResult, this.onErrorPlugin, nativeBridgeName, "isInitialized", []);
+    cordova.exec(onResult, this.onErrorPlugin, NATIVE_BRIDGE_NAME, "isInitialized", []);
 }
 
 /// <summary>
@@ -65,35 +56,35 @@ GetSocial.prototype.isInitialized = function(onResult) {
 /// </summary>
 /// <param name="onResult">Action called with version as argument.</param>
 GetSocial.prototype.getVersion = function (onResult) {
-    cordova.exec(onResult, this.onErrorPlugin, nativeBridgeName, "getVersion", []);
+    cordova.exec(onResult, this.onErrorPlugin, NATIVE_BRIDGE_NAME, "getVersion", []);
 }
 /// <summary>
 /// Returns the current SDK APIversion
 /// </summary>
 /// <param name="onResult">Action called with apiversion as argument.</param>
 GetSocial.prototype.getApiVersion = function (onResult) {
-    cordova.exec(onResult, this.onErrorPlugin, nativeBridgeName, "getApiVersion", []);
+    cordova.exec(onResult, this.onErrorPlugin, NATIVE_BRIDGE_NAME, "getApiVersion", []);
 }
 /// <summary>
 /// Returns the current Environment
 /// </summary>
 /// <param name="onResult">Action called with Environment as argument. Can <c>Android</c> or <c>iOS</c> </param>
 GetSocial.prototype.getEnvironment = function (onResult) {
-    cordova.exec(onResult, this.onErrorPlugin, nativeBridgeName, "getEnvironment", []);
+    cordova.exec(onResult, this.onErrorPlugin, NATIVE_BRIDGE_NAME, "getEnvironment", []);
 }
 /// <summary>
 /// Returns all supported invite providers.
 /// </summary>
 /// <param name="onResult">Action called with array containing constants id's for all supported providers</returns>
 GetSocial.prototype.getSupportedInviteProviders = function (onResult) {
-    cordova.exec(onResult, this.onErrorPlugin, nativeBridgeName, "getSupportedInviteProviders", []);
+    cordova.exec(onResult, this.onErrorPlugin, NATIVE_BRIDGE_NAME, "getSupportedInviteProviders", []);
 }
 /// <summary>
 /// Returns configuration.
 /// </summary>
 /// <param name="onResult">Action called with null as argument.</param>
 GetSocial.prototype.getConfiguration = function (onResult) {
-    cordova.exec(onResult, this.onErrorPlugin, nativeBridgeName, "getConfiguration", []);
+    cordova.exec(onResult, this.onErrorPlugin, NATIVE_BRIDGE_NAME, "getConfiguration", []);
 }
 
 /// <summary>
@@ -101,7 +92,7 @@ GetSocial.prototype.getConfiguration = function (onResult) {
 /// </summary>
 /// <param name="onReferralDataReceived">Return refferalData in format [{key:value, key2:value2}, ...]</param>
 GetSocial.prototype.setOnReferralDataReceivedListener = function (onReferralDataReceived) {
-    cordova.exec(onReferralDataReceived, this.onErrorPlugin, nativeBridgeName, "setOnReferralDataReceivedListener", []);
+    cordova.exec(onReferralDataReceived, this.onErrorPlugin, NATIVE_BRIDGE_NAME, "setOnReferralDataReceivedListener", []);
 }
 
 /// <summary>
@@ -112,13 +103,13 @@ GetSocial.prototype.setOnReferralDataReceivedListener = function (onReferralData
 GetSocial.prototype.setOnInviteFriendsListener = function (onInviteFriendsIntent, onFriendsInvited ) {
         cordova.exec(function(jsonObj) {
             if(jsonObj != undefined) {
-                if(jsonObj.Event == ON_INVITE_FRIENDS_INTENT_EVENT) {
+                if(jsonObj.Event == INVITE_FRIENDS_EVENTS.ON_INVITE_FRIENDS_INTENT_EVENT) {
                     onInviteFriendsIntent();
-                } else if(jsonObj.Event == ON_INVITED_FRIENDS_EVENT) {
+                } else if(jsonObj.Event == INVITE_FRIENDS_EVENTS.ON_INVITED_FRIENDS_EVENT) {
                     onFriendsInvited(jsonObj.InvitedFriends);
                 }
             }
-        }, this.onErrorPlugin, nativeBridgeName, "setOnInviteFriendsListener", []);
+        }, this.onErrorPlugin, NATIVE_BRIDGE_NAME, "setOnInviteFriendsListener", []);
 }
 /// <summary>
 /// Invite friends through a specific invite provider.
@@ -152,7 +143,7 @@ GetSocial.prototype.inviteFriendsUsingProvider = function (provider, subject, te
            option.referrals = referralData;
         }
 
-        cordova.exec(onResult, this.onErrorPlugin, nativeBridgeName, "inviteFriendsUsingProvider", [option]);
+        cordova.exec(onResult, this.onErrorPlugin, NATIVE_BRIDGE_NAME, "inviteFriendsUsingProvider", [option]);
     }
 /// <summary>
 /// Register a new instance of a plugin for a specified provider.
@@ -168,21 +159,18 @@ GetSocial.prototype.registerPlugin = function (onResult, plugin) {
         if(action == null)
             return;
 
-        if (action === PluginEvent.INIT_CALLBACK_ID) {
+        if (action === PLUGIN_EVENT.INIT_CALLBACK_ID) {
             plugin.setCallbackId(data.callbackId)
             onResult(data.callbackId);
         }
-        if(action === PluginEvent.INVITE_FRIENDS) {
-            var s = data.s;
-            var s1 = data.s1;
-            var s2 = data.s2;
+        if(action === PLUGIN_EVENT.INVITE_FRIENDS) {
+            var subject = data.subject;
+            var text = data.text;
+            var referralDataUrl = data.referralDataUrl;
             var image = data.image;
-            plugin.inviteFriends(s, s1, s2, image);
+            plugin.inviteFriends(subject, text, referralDataUrl, image);
         }
 
-    }, this.onErrorPlugin, nativeBridgeName, "registerPlugin", [plugin.getOptions()]);
+    }, this.onErrorPlugin, NATIVE_BRIDGE_NAME, "registerPlugin", [plugin.getOptions()]);
 }
 module.exports = GetSocial;
-module.exports.ScaleMode = ScaleMode;
-module.exports.AnimationStyle = AnimationStyle;
-module.exports.nativeBridgeName = nativeBridgeName; 

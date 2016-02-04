@@ -12,7 +12,10 @@
     return options;
   }
 
-  FacebookInvitePlugin.prototype.inviteFriends = function(subject, text, referralDataUrl, image, onSuccess, onCancel, onFailure) {}
+  FacebookInvitePlugin.prototype.inviteFriends = function(subject, text, referralDataUrl, image) {
+    //check if auth and run onComplete
+    this.completeCallback("text", ['Hello', 'World'])
+  }
 
   FacebookInvitePlugin.prototype.__proto__ = InvitePlugin.prototype;
 

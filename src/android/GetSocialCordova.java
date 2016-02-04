@@ -50,23 +50,25 @@ public class GetSocialCordova extends CordovaPlugin {
     }
 
     private void init(final String key, final CallbackContext callbackContext) {
-        getSocialImpl().init(key, new GetSocial.OperationObserver()
-                {
-                    @Override
-                    public void onSuccess(String data)
-                    {
-                        callbackContext.success(data);
-                        Log.d(TAG, "GetSocial initialization successful");
-                    }
+        cordova.getThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                getSocialImpl().init(key, new GetSocial.OperationObserver() {
+                            @Override
+                            public void onSuccess(String data) {
+                                callbackContext.success(data);
+                                Log.d(TAG, "GetSocial initialization successful");
+                            }
 
-                    @Override
-                    public void onFailure()
-                    {
-                        callbackContext.error("GetSocial initialization failed");
-                        Log.d(TAG, "GetSocial initialization failed");
-                    }
-                }
-        );
+                            @Override
+                            public void onFailure() {
+                                callbackContext.error("GetSocial initialization failed");
+                                Log.d(TAG, "GetSocial initialization failed");
+                            }
+                        }
+                );
+            }
+        });
     }
     private boolean isInitialized() {
         return getSocialImpl().isInitialized();
