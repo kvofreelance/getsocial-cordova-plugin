@@ -46,7 +46,7 @@ public class GetSocialPluginProxy extends InvitePlugin {
         if (inviteFriendsObserver == null)
             return false;
 
-        inviteFriendsObserver.onError(null);
+        inviteFriendsObserver.onError(new Exception());
 
         return true;
     }
