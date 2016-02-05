@@ -2,7 +2,7 @@
 
 ### Install
 
-`cordova plugins add https://github.com/kvofreelance/getsocial-cordova-plugin.git --variable FACEBOOK_APP_ID="<facebook_app_id>"`
+`cordova plugins add https://github.com/kvofreelance/getsocial-cordova-plugin.git --variable APP_ID="<facebook_app_id>" --variable APP_NAME="<facebook_app_name>"`
 
 
 Modify MainActivity.java (src/"packageid"/MainActivity.java):
@@ -22,3 +22,5 @@ Modify MainActivity.java (src/"packageid"/MainActivity.java):
         super.onPause();
         GetSocial.getInstance(getApplicationContext()).onPause();
     }
+
+

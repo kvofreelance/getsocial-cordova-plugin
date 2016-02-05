@@ -9,7 +9,8 @@
     <engine name="cordova" version=">=3.4.0"/>
   </engines>
 
-  <preference name="FACEBOOK_APP_ID" />
+  <preference name="APP_ID" />
+  <preference name="APP_NAME" />
 
   <!-- <asset src="www/getsocial.js" target="js/getsocial.js"/> -->
 
@@ -35,6 +36,8 @@
     <clobbers target="ViewBuilder" />
   </js-module>
 
+  <dependency id="phonegap-facebook-plugin" url="https://github.com/Wizcorp/phonegap-facebook-plugin" />
+
   <platform name="android">
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="GetSocialCordova">
@@ -46,10 +49,6 @@
       <feature name="GetSocialPluginEvents">
         <param name="android-package" value="com.getsocialsdk.cordova.plugin.GetSocialPluginEvents" />
       </feature>
-    </config-file>
-
-    <config-file target="res/values/strings.xml" parent="/*">
-      <string name="facebook_app_id">$FACEBOOK_APP_ID</string>
     </config-file>
 
     <config-file target="AndroidManifest.xml" parent="/*">
@@ -93,19 +92,8 @@
 
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
         <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-        <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
-    </config-file>
-
-    <config-file target="AndroidManifest.xml" parent="/manifest/application">
-        <activity
-          android:name="com.facebook.FacebookActivity"
-          android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-          android:label="@string/app_name"
-          android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     </config-file>
 
     <source-file src="src/android/GetSocialCordova.java" target-dir="src/com/getsocialsdk/cordova/plugin/"/>
@@ -115,7 +103,6 @@
     <source-file src="src/android/GetSocialUtil.java" target-dir="src/com/getsocialsdk/cordova/plugin/"/>
 
     <source-file src="lib/getsocial-android-sdk-core.jar" target-dir="libs" framework="true" />
-    <framework src="com.facebook.android:facebook-android-sdk:4.4.0" />
     <framework src="com.google.android.gms:play-services-gcm:8.1.0"/>
     <framework src="com.google.android.gms:play-services-ads:8.1.0"/>
     <framework src="com.google.android.gms:play-services-plus:8.1.0"/>
