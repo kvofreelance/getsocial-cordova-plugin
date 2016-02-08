@@ -155,8 +155,7 @@
     <framework src="libxml2.tbd" weak="true" />
     <framework src="libz.tbd" weak="true" />
     
-    //And finally just add this flag -lstdc++ and -ObjC to your project’s “Other Linker Flags” inside Build Settings section.
-
+  
   </platform>
 
 </plugin>

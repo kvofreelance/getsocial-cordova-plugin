@@ -43,7 +43,10 @@
       scope.errorCallback(err);
     }
 
-    facebookConnectPlugin.getLoginStatus( function(userData) {
+    if(cordova.platformId === "ios") {
+      showInviteFriendsDialog(subject, text, referralDataUrl, image);
+    } else {
+      facebookConnectPlugin.getLoginStatus( function(userData) {
         if(userData.status !== "connected") {
           facebookConnectPlugin.login(["public_profile"],
              function() { showInviteFriendsDialog(subject, text, referralDataUrl, image) },
@@ -52,7 +55,9 @@
         } else {
           showInviteFriendsDialog(subject, text, referralDataUrl, image);
         }
-      }, onError);
+      }, onError);  
+    }
+    
   }
 
   FacebookInvitePlugin.prototype.__proto__ = InvitePlugin.prototype;
