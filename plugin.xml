@@ -111,13 +111,52 @@
   <platform name="ios">
     
     <config-file target="config.xml" parent="/widget">
-      <feature name="Main">
-        <param name="ios-package" value="GSMain" />
+      <feature name="GetSocialCordova">
+        <param name="ios-package" value="GetSocialCordova" />
+      </feature>
+      <feature name="GetSocialPluginEvents">
+        <param name="ios-package" value="GetSocialPluginEvents" />
+      </feature>
+      <feature name="GetSocialConfiguration">
+        <param name="ios-package" value="GetSocialConfig" />
       </feature>
     </config-file>
 
-    <header-file src="src/ios/GSMain.h" target-dir="GetSocialSDKPluign"/>
-    <source-file src="src/ios/GSMain.m" target-dir="GetSocialSDKPluign"/>
+    <header-file src="src/ios/GetSocialCordova.h" target-dir="GetSocialSDKPluign"/>
+    <source-file src="src/ios/GetSocialCordova.m" target-dir="GetSocialSDKPluign"/>
+    <header-file src="src/ios/GetSocialConfig.h" target-dir="GetSocialSDKPluign"/>
+    <source-file src="src/ios/GetSocialConfig.m" target-dir="GetSocialSDKPluign"/>
+    <header-file src="src/ios/GetSocialPluginEvents.h" target-dir="GetSocialSDKPluign"/>
+    <source-file src="src/ios/GetSocialPluginEvents.m" target-dir="GetSocialSDKPluign"/>
+    <header-file src="src/ios/GetSocialPluginProxy.h" target-dir="GetSocialSDKPluign"/>
+    <source-file src="src/ios/GetSocialPluginProxy.m" target-dir="GetSocialSDKPluign"/>
+
+    <framework src="lib/GetSocial.embeddedframework" custom="true" />
+
+    <!-- System frameworks -->
+    <framework src="libsqlite3.dylib" />
+    <framework src="Accelerate.framework" weak="true" />
+    <framework src="AdSupport.framework" weak="true" />
+    <framework src="AudioToolbox.framework" weak="true" />
+    <framework src="AVFoundation.framework" weak="true" />
+    <framework src="CoreImage.framework" weak="true" />
+    <framework src="CoreLocation.framework" weak="true" />
+    <framework src="CoreMedia.framework" weak="true" />
+    <framework src="CoreTelephony.framework" weak="true" />
+    <framework src="CoreText.framework" weak="true" />
+    <framework src="MessageUI.framework" weak="true" />
+    <framework src="MobileCoreServices.framework" weak="true" />
+    <framework src="Security.framework" weak="true" />
+    <framework src="Social.framework" weak="true" />
+    <framework src="SystemConfiguration.framework" weak="true" />
+    <framework src="libiconv.tbd" weak="true" />
+    <framework src="libresolv.tbd" weak="true" />
+    <framework src="libsqlite3.tbd" weak="true" />
+    <framework src="libxml2.tbd" weak="true" />
+    <framework src="libz.tbd" weak="true" />
+    
+    //And finally just add this flag -lstdc++ and -ObjC to your project’s “Other Linker Flags” inside Build Settings section.
+
   </platform>
 
 </plugin>
