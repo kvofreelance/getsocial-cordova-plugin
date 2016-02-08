@@ -131,7 +131,7 @@
     <header-file src="src/ios/GetSocialPluginProxy.h" target-dir="GetSocialSDKPluign"/>
     <source-file src="src/ios/GetSocialPluginProxy.m" target-dir="GetSocialSDKPluign"/>
 
-    <framework src="lib/GetSocial.embeddedframework" custom="true" />
+    <resource-file src="lib/GetSocial.embeddedframework"/>
 
     <!-- System frameworks -->
     <framework src="libsqlite3.dylib" />
