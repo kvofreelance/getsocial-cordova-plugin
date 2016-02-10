@@ -79,13 +79,13 @@ GetSocial.prototype.getEnvironment = function (onResult) {
 GetSocial.prototype.getSupportedInviteProviders = function (onResult) {
     cordova.exec(onResult, this.onErrorPlugin, NATIVE_BRIDGE_NAME, "getSupportedInviteProviders", []);
 }
-/// <summary>
-/// Returns configuration.
-/// </summary>
-/// <param name="onResult">Action called with null as argument.</param>
-GetSocial.prototype.getConfiguration = function (onResult) {
-    cordova.exec(onResult, this.onErrorPlugin, NATIVE_BRIDGE_NAME, "getConfiguration", []);
-}
+// /// <summary>
+// /// Returns configuration.
+// /// </summary>
+// /// <param name="onResult">Action called with null as argument.</param>
+// GetSocial.prototype.getConfiguration = function (onResult) {
+//     cordova.exec(onResult, this.onErrorPlugin, NATIVE_BRIDGE_NAME, "getConfiguration", []);
+// }
 
 /// <summary>
 /// Provide a method that implements <c>OnReferralDataReceived</c> delegate if you would like to get referral data if the user installs or opens the app after opening a Smart Invite .
