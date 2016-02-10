@@ -84,11 +84,11 @@ static NSMutableArray *registeredPlugins = nil;
     [self successWithNSStringResult:@"iOS" andCallbackId:callbackId];
 }
 
-//???
--(void) getConfiguration:(CDVInvokedUrlCommand*)command {
-    NSString* callbackId = [command callbackId];
-    [self successWithNSStringResult:@"" andCallbackId:callbackId];
-}
+// //???
+// -(void) getConfiguration:(CDVInvokedUrlCommand*)command {
+//     NSString* callbackId = [command callbackId];
+//     [self successWithNSStringResult:@"" andCallbackId:callbackId];
+// }
 
 -(void) setOnReferralDataReceivedListener:(CDVInvokedUrlCommand*)command {
     NSString* callbackId = [command callbackId];

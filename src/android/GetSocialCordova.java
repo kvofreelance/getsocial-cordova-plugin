@@ -339,13 +339,13 @@ public class GetSocialCordova extends CordovaPlugin {
             return true;
         }
 
-        if(action.equals(GET_CONFIGURATION_VERSION_METHOD)) {
-            // Need to check. Crash on click
-            Configuration config = getConfiguration();
-            callbackContext.success("");
+        // if(action.equals(GET_CONFIGURATION_VERSION_METHOD)) {
+        //     // Need to check. Crash on click
+        //     Configuration config = getConfiguration();
+        //     callbackContext.success("");
 
-            return true;
-        }
+        //     return true;
+        // }
 
         return false;
     }
