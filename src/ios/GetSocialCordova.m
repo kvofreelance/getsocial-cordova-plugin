@@ -155,10 +155,7 @@ static NSMutableArray *registeredPlugins = nil;
     
     NSString *imageUrlString = [option objectForKey:@"image"];
     if([self isEmptyOrNull:imageUrlString]) {
-        imageUrlString = [self parseBase64Image:imageUrlString];
-        NSURL *url = [NSURL URLWithString:imageUrlString];
-        NSData *imageData = [NSData dataWithContentsOfURL:url];
-        properties[kGetSocialImage] = [UIImage imageWithData:imageData];
+        properties[kGetSocialImage] = [self getImageFromGetSocialPluginParam:imageUrlString];
     }
     
     NSDictionary *referralsArray = [option objectForKey:@"referrals"];
@@ -190,10 +187,7 @@ static NSMutableArray *registeredPlugins = nil;
     
     NSString *imageUrlString = [object objectForKey:@"image"];
     if([self isEmptyOrNull:imageUrlString]) {
-        imageUrlString = [self parseBase64Image:imageUrlString];
-        NSURL *url = [NSURL URLWithString:imageUrlString];
-        NSData *imageData = [NSData dataWithContentsOfURL:url];
-        smartIvite.image = [UIImage imageWithData:imageData];
+        smartIvite.image = [self getImageFromGetSocialPluginParam:imageUrlString];
     }
     
     NSDictionary *referralData = [object objectForKey:@"referralData"];
@@ -209,14 +203,19 @@ static NSMutableArray *registeredPlugins = nil;
     return (data == nil || data.length != 0);
 }
 
--(NSString*) parseBase64Image:(NSString*) base64encode {
-    if([self isEmptyOrNull:base64encode]) {
-        if([base64encode containsString:@","]) {
-            NSUInteger position = [base64encode rangeOfString:@","].location;
-            base64encode = [base64encode substringFromIndex:position];
+-(UIImage*) getImageFromGetSocialPluginParam:(NSString*) data {
+    NSString* path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:data];
+    if([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        // it's path
+        return [UIImage imageWithContentsOfFile:path];
+    } else {
+        // it's base64
+        if([data containsString:@","]) {
+            NSUInteger position = [data rangeOfString:@","].location+1;
+            data = [data substringFromIndex:position];
         }
-        
-        return base64encode;
+        NSData *dataBase64String = [[NSData alloc] initWithBase64EncodedString:data options:0];
+        return [UIImage imageWithData:dataBase64String];
     }
     
     return nil;

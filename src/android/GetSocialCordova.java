@@ -159,14 +159,9 @@ public class GetSocialCordova extends CordovaPlugin {
             text=null;
 
         Bitmap image = null;
-        String imageBase64 = option.optString("image");
-        if(!imageBase64.isEmpty()) {
-            if(imageBase64.indexOf(",") >-1) {
-                int position = imageBase64.indexOf(",")+1;
-                imageBase64 = imageBase64.substring(position, imageBase64.length() - position);
-            }
-            byte[] decodedString = Base64.decode(imageBase64, Base64.DEFAULT);
-            image = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        String imageString = option.optString("image");
+        if(!imageString.isEmpty()) {
+            image = GetSocialUtil.getImageFromGetSocialPluginParam(cordova.getActivity().getApplicationContext(), imageString);
         }
 
         Map<String,String> referralData = null;

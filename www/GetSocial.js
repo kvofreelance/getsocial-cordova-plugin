@@ -117,10 +117,10 @@ GetSocial.prototype.setOnInviteFriendsListener = function (onInviteFriendsIntent
 /// <param name="provider">The provider through which the invite will be sent.</param>
 /// <param name="subject">The subject to be sent with the invite. If it is null the default subject set on DevPortal is sent.</param>
 /// <param name="text">The text to be sent with the invite. NOTE: you can use following tags to customize text: [APP_INVITE_URL] - tag is replaced with url to download the app; [APP_NAME] - tag is replaced with app name configured on the GetSocial Developer Portal. If it is null the default text set on DevPortal is sent.</param>
-/// <param name="imageBase64">The image in base64 to be sent with the invite. If it is null the default image set on DevPortal will be sent.</param>
+/// <param name="image">The image in base64 to be sent with the invite or path to image in assets catalog. If it is null the default image set on DevPortal will be sent.</param>
 /// <param name="referralData">The bundle to be sent with the invite. It can be null.</param>
 /// <param name="onResult">Action called when invoke inviteFriendsUsingProvider.</param>
-GetSocial.prototype.inviteFriendsUsingProvider = function (provider, subject, text, imageBase64, referralData, onResult) {
+GetSocial.prototype.inviteFriendsUsingProvider = function (provider, subject, text, image, referralData, onResult) {
         var option = {}
         if(provider == null) {
             errorCallback("Please set provider value");
@@ -135,8 +135,8 @@ GetSocial.prototype.inviteFriendsUsingProvider = function (provider, subject, te
            option.text = text;
         }
 
-        if(imageBase64 != null) {
-           option.image = imageBase64;
+        if(image != null) {
+           option.image = image;
         }
 
         if(referralData != null) {

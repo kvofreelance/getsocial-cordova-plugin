@@ -70,7 +70,8 @@
 }
 
 -(NSString*) convertUIImageToBase64:(UIImage*) image {
-    return @"";
+    NSData *imageData = UIImagePNGRepresentation(image);
+    return [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 }
 
 -(void) initializeCallbackId {
