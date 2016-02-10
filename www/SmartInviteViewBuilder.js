@@ -24,10 +24,11 @@
        return this;
     }
 
-    SmartInviteViewBuilder.prototype.setImage = function(image) {
-       this.image = image;
-       return this;
-    }
+    // Need to fixed issue
+    // SmartInviteViewBuilder.prototype.setImage = function(image) {
+    //    this.image = image;
+    //    return this;
+    // }
 
     SmartInviteViewBuilder.prototype.show = function() {
       var option = {}
